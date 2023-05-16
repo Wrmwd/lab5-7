@@ -1,7 +1,9 @@
 package com.example.carsharing.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.mockito.Mockito.mock;
 
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -91,6 +93,98 @@ class TravelTest {
         assertSame(person, actualTravel.getPerson());
         assertEquals("Travel cost", actualTravel.getTravel_cost());
         assertSame(travel_date, actualTravel.getTravel_date());
+    }
+
+    /**
+     * Method under test: {@link Travel#equals(Object)}
+     */
+    @Test
+    void testEquals() {
+        assertNotEquals(new Travel(), null);
+        assertNotEquals(new Travel(), "Different type to Travel");
+    }
+
+    /**
+     * Methods under test:
+     *
+     * <ul>
+     *   <li>{@link Travel#equals(Object)}
+     *   <li>{@link Travel#hashCode()}
+     * </ul>
+     */
+    @Test
+    void testEquals2() {
+        Travel travel = new Travel();
+        assertEquals(travel, travel);
+        int expectedHashCodeResult = travel.hashCode();
+        assertEquals(expectedHashCodeResult, travel.hashCode());
+    }
+
+    /**
+     * Methods under test:
+     *
+     * <ul>
+     *   <li>{@link Travel#equals(Object)}
+     *   <li>{@link Travel#hashCode()}
+     * </ul>
+     */
+    @Test
+    void testEquals3() {
+        Travel travel = new Travel();
+        Travel travel2 = new Travel();
+        assertEquals(travel, travel2);
+        int expectedHashCodeResult = travel.hashCode();
+        assertEquals(expectedHashCodeResult, travel2.hashCode());
+    }
+
+    /**
+     * Method under test: {@link Travel#equals(Object)}
+     */
+    @Test
+    void testEquals4() {
+        Travel travel = new Travel("Travel cost",
+                Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        assertNotEquals(travel, new Travel());
+    }
+
+    /**
+     * Method under test: {@link Travel#equals(Object)}
+     */
+    @Test
+    void testEquals5() {
+        Travel travel = new Travel();
+        travel.travel_date = mock(java.sql.Date.class);
+        assertNotEquals(travel, 1);
+    }
+
+    /**
+     * Method under test: {@link Travel#equals(Object)}
+     */
+    @Test
+    void testEquals6() {
+        Travel travel = new Travel();
+        travel.setPerson(new Person("Name", 1, 1));
+        assertNotEquals(travel, new Travel());
+    }
+
+    /**
+     * Method under test: {@link Travel#equals(Object)}
+     */
+    @Test
+    void testEquals7() {
+        Travel travel = new Travel();
+        travel.setTravel_date(Date.from(LocalDate.of(1970, 1, 1).atStartOfDay().atZone(ZoneOffset.UTC).toInstant()));
+        assertNotEquals(travel, new Travel());
+    }
+
+    /**
+     * Method under test: {@link Travel#equals(Object)}
+     */
+    @Test
+    void testEquals8() {
+        Travel travel = new Travel();
+        travel.setId(1L);
+        assertNotEquals(travel, new Travel());
     }
 }
 

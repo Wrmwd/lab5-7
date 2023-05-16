@@ -1,6 +1,7 @@
 package com.example.carsharing.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import java.util.ArrayList;
@@ -79,6 +80,78 @@ class PersonTest {
         assertEquals("Name", actualPerson.getName());
         assertSame(violations, actualPerson.getViolations());
         assertEquals("Person{id=1, name='Name', age=1, experience=1, violations=[]}", actualToStringResult);
+    }
+
+    /**
+     * Method under test: {@link Person#equals(Object)}
+     */
+    @Test
+    void testEquals() {
+        assertNotEquals(new Person("Name", 1, 1), null);
+        assertNotEquals(new Person("Name", 1, 1), "Different type to Person");
+    }
+
+    /**
+     * Methods under test:
+     *
+     * <ul>
+     *   <li>{@link Person#equals(Object)}
+     *   <li>{@link Person#hashCode()}
+     * </ul>
+     */
+    @Test
+    void testEquals2() {
+        Person person = new Person("Name", 1, 1);
+        assertEquals(person, person);
+        int expectedHashCodeResult = person.hashCode();
+        assertEquals(expectedHashCodeResult, person.hashCode());
+    }
+
+    /**
+     * Methods under test:
+     *
+     * <ul>
+     *   <li>{@link Person#equals(Object)}
+     *   <li>{@link Person#hashCode()}
+     * </ul>
+     */
+    @Test
+    void testEquals3() {
+        Person person = new Person("Name", 1, 1);
+        Person person2 = new Person("Name", 1, 1);
+
+        assertEquals(person, person2);
+        int expectedHashCodeResult = person.hashCode();
+        assertEquals(expectedHashCodeResult, person2.hashCode());
+    }
+
+    /**
+     * Method under test: {@link Person#equals(Object)}
+     */
+    @Test
+    void testEquals4() {
+        Person person = new Person(null, 1, 1);
+        assertNotEquals(person, new Person("Name", 1, 1));
+    }
+
+    /**
+     * Method under test: {@link Person#equals(Object)}
+     */
+    @Test
+    void testEquals5() {
+        Person person = new Person("Name", 1, 1);
+        person.setId(1L);
+        assertNotEquals(person, new Person("Name", 1, 1));
+    }
+
+    /**
+     * Method under test: {@link Person#equals(Object)}
+     */
+    @Test
+    void testEquals6() {
+        Person person = new Person("Name", 1, 1);
+        person.setViolations(new ArrayList<>());
+        assertNotEquals(person, new Person("Name", 1, 1));
     }
 }
 

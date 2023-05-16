@@ -1,10 +1,5 @@
 package com.example.carsharing;
 
-import static org.mockito.Mockito.atLeast;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import com.example.carsharing.entities.Car;
 import com.example.carsharing.entities.Person;
 import com.example.carsharing.entities.Travel;
@@ -15,6 +10,8 @@ import com.example.carsharing.repositories.TravelRepository;
 import com.example.carsharing.repositories.ViolationRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+
+import static org.mockito.Mockito.*;
 
 class LoadDatabaseTest {
     /**
